@@ -5,11 +5,11 @@ type TransferModalProps = {
   balance: string;
   onClose: () => void;
   onConfirm: (
-    receiverEmail: string,
-    amount: number
-  ) => Promise<void>;
-};
-
+  receiverEmail: string,
+  amount: number,
+  description: string
+) => Promise<void>;
+}
 export function TransferModal({
   open,
   balance,
@@ -18,6 +18,7 @@ export function TransferModal({
 }: TransferModalProps) {
   const [receiverEmail, setReceiverEmail] = useState("");
   const [amount, setAmount] = useState("");
+  const [description, setDescription] = useState("");
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState("");
   const parsedAmount = Number(
@@ -49,10 +50,13 @@ const insufficientBalance =
       setLoading(true);
       setError("");
 
-      await onConfirm(receiverEmail, parsedAmount);
+      await onConfirm(
+  receiverEmail,
+  parsedAmount,
+  description
+);
 
-      setReceiverEmail("");
-      setAmount("");
+      setDescription("");
       onClose();
     } catch {
       setError("Não foi possível realizar a transferência");
@@ -60,6 +64,18 @@ const insufficientBalance =
       setLoading(false);
     }
   }
+  <label>
+  Descrição (opcional)
+
+  <input
+    type="text"
+    placeholder="Ex.: Mercado Angeloni"
+    value={description}
+    onChange={(event) =>
+      setDescription(event.target.value)
+    }
+  />
+</label>
 
   return (
     <div className="modal-backdrop" onClick={onClose}>
@@ -92,7 +108,7 @@ const insufficientBalance =
           />
         </label>
 
-        <label>
+       <label>
   Valor
 
   <div className="money-field">
@@ -121,12 +137,25 @@ const insufficientBalance =
   </div>
 </label>
 
+<label>
+  Descrição (opcional)
+
+  <input
+    type="text"
+    placeholder="Ex.: Mercado Angeloni, Uber, Netflix..."
+    value={description}
+    maxLength={120}
+    onChange={(event) =>
+      setDescription(event.target.value)
+    }
+  />
+</label>
+
 {insufficientBalance && (
   <p className="form-error">
     Saldo insuficiente.
   </p>
 )}
-
 {error && <p className="form-error">{error}</p>}
 
         <div className="modal-actions">

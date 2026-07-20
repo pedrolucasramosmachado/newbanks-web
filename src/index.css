@@ -527,3 +527,177 @@ input:-webkit-autofill:active {
 .money-field input:focus {
   box-shadow: none;
 }
+.katarina-button {
+  width: 100%;
+  margin-top: 18px;
+  padding: 16px 20px;
+  border: 1px solid rgba(124, 92, 255, 0.35);
+  border-radius: 16px;
+  background: linear-gradient(
+    135deg,
+    rgba(108, 76, 255, 0.15),
+    rgba(147, 112, 255, 0.08)
+  );
+  color: #ffffff;
+  font-size: 15px;
+  font-weight: 700;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 10px;
+  transition: transform 0.2s ease, border-color 0.2s ease;
+}
+
+.katarina-button:hover {
+  transform: translateY(-2px);
+  border-color: rgba(145, 113, 255, 0.75);
+}
+.katarina-card {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 24px;
+  margin-top: 18px;
+  padding: 22px;
+  border: 1px solid rgba(124, 92, 255, 0.3);
+  border-radius: 18px;
+  background: linear-gradient(
+    135deg,
+    rgba(108, 76, 255, 0.16),
+    rgba(108, 76, 255, 0.05)
+  );
+}
+
+.katarina-card-label {
+  display: block;
+  margin-bottom: 6px;
+  color: #a78bfa;
+  font-size: 12px;
+  font-weight: 800;
+  letter-spacing: 1.5px;
+}
+
+.katarina-card h2 {
+  margin: 0 0 6px;
+  font-size: 20px;
+}
+
+.katarina-card p {
+  margin: 0;
+  color: #98a2b3;
+}
+
+.katarina-card button {
+  flex-shrink: 0;
+  padding: 11px 18px;
+  border: 0;
+  border-radius: 10px;
+  background: #7c5cff;
+  color: white;
+  font-weight: 700;
+  cursor: pointer;
+}
+
+.katarina-card button:hover {
+  opacity: 0.9;
+}
+
+@media (max-width: 600px) {
+  .katarina-card {
+    align-items: flex-start;
+    flex-direction: column;
+  }
+
+  .katarina-card button {
+    width: 100%;
+  }
+}
+
+.messageText h1,
+.messageText h2,
+.messageText h3{
+    margin:12px 0 8px;
+    color:#fff;
+}
+
+.messageText p{
+    margin:8px 0;
+}
+
+.messageText ul{
+    margin:10px 0;
+    padding-left:20px;
+}
+
+.messageText strong{
+    color:#b89cff;
+}
+
+.messageText hr{
+    border:none;
+    border-top:1px solid rgba(255,255,255,.08);
+    margin:14px 0;
+}
+.typing-dot{
+    width:8px;
+    height:8px;
+    border-radius:50%;
+    background:#8c8c9f;
+    display:inline-block;
+    margin-right:5px;
+    animation:typing 1.3s infinite;
+}
+
+.typing-dot:nth-child(2){
+    animation-delay:.2s;
+}
+
+.typing-dot:nth-child(3){
+    animation-delay:.4s;
+}
+
+@keyframes typing{
+
+0%,80%,100%{
+transform:scale(.6);
+opacity:.4;
+}
+
+40%{
+transform:scale(1);
+opacity:1;
+}
+}
+/* Scroll das mensagens da Katarina */
+.katarina-messages {
+  scrollbar-width: thin;
+  scrollbar-color: rgba(124, 92, 255, 0.55) transparent;
+}
+
+.katarina-messages::-webkit-scrollbar {
+  width: 6px;
+}
+
+.katarina-messages::-webkit-scrollbar-track {
+  background: transparent;
+}
+
+.katarina-messages::-webkit-scrollbar-thumb {
+  background: rgba(124, 92, 255, 0.45);
+  border-radius: 999px;
+}
+
+.katarina-messages::-webkit-scrollbar-thumb:hover {
+  background: rgba(124, 92, 255, 0.75);
+}
+
+/* Sugestões */
+.katarina-suggestions {
+  scrollbar-width: none;
+  -ms-overflow-style: none;
+}
+
+.katarina-suggestions::-webkit-scrollbar {
+  display: none;
+}

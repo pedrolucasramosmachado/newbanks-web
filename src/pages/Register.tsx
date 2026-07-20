@@ -2,6 +2,7 @@ import { useState } from "react";
 import type { FormEvent } from "react";
 import { useNavigate } from "react-router-dom";
 import { Eye, EyeOff } from "lucide-react";
+import axios from "axios";
 
 import { api } from "../services/api";
 
@@ -16,33 +17,47 @@ export function Register() {
   const [showPassword, setShowPassword] = useState(false);
 
   async function handleSubmit(event: FormEvent) {
-    event.preventDefault();
+  event.preventDefault();
 
-    try {
-      setLoading(true);
-      setError("");
+  try {
+    setLoading(true);
+    setError("");
 
-      await api.post("/auth/register", {
-        name,
-        email,
-        password,
-      });
+    await api.post("/auth/register", {
+      name,
+      email,
+      password,
+    });
 
-      const response = await api.post("/auth/login", {
-        email,
-        password,
-      });
+    const response = await api.post("/auth/login", {
+      email,
+      password,
+    });
 
-      localStorage.setItem("newbanks_token", response.data.token);
+    localStorage.setItem("newbanks_token", response.data.token);
 
-      navigate("/dashboard");
-    } catch {
-      setError("Não foi possível criar sua conta");
-    } finally {
-      setLoading(false);
+    navigate("/dashboard");
+  } catch (error) {
+    console.error("ERRO AO CRIAR CONTA:", error);
+
+    if (axios.isAxiosError(error)) {
+      console.error("STATUS:", error.response?.status);
+      console.error("RESPOSTA:", error.response?.data);
+
+      setError(
+        error.response?.data?.message ||
+          error.response?.data?.error ||
+          "Não foi possível criar sua conta"
+      );
+
+      return;
     }
-  }
 
+    setError("Não foi possível criar sua conta");
+  } finally {
+    setLoading(false);
+  }
+}
   return (
     <main className="auth-page">
       <section className="auth-card">

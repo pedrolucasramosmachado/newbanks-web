@@ -9,7 +9,11 @@ export const api = axios.create({
 api.interceptors.request.use((config) => {
   const token = localStorage.getItem("newbanks_token");
 
-  if (token) {
+  const isPublicRoute =
+    config.url?.includes("/auth/login") ||
+    config.url?.includes("/auth/register");
+
+  if (token && !isPublicRoute) {
     config.headers.Authorization = `Bearer ${token}`;
   }
 

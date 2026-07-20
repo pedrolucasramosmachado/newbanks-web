@@ -4,8 +4,12 @@ type Transaction = {
   id: string;
   type: string;
   amount: string;
-  description: string;
+  description?: string;
   createdAt: string;
+
+  counterpartyUserId?: string;
+  counterpartyName?: string;
+  counterpartyEmail?: string;
 };
 
 type TransactionListProps = {
@@ -20,6 +24,24 @@ export function TransactionList({
       style: "currency",
       currency: "BRL",
     }).format(Number(value));
+  }
+
+  function getTransactionTitle(transaction: Transaction) {
+    if (
+      transaction.type === "TRANSFER_OUT" &&
+      transaction.counterpartyName
+    ) {
+      return `Transferência para ${transaction.counterpartyName}`;
+    }
+
+    if (
+      transaction.type === "TRANSFER_IN" &&
+      transaction.counterpartyName
+    ) {
+      return `Transferência de ${transaction.counterpartyName}`;
+    }
+
+    return transaction.description || transaction.type;
   }
 
   if (transactions.length === 0) {
@@ -63,7 +85,7 @@ export function TransactionList({
 
               <div className="transaction-info">
                 <strong>
-                  {transaction.description || transaction.type}
+                  {getTransactionTitle(transaction)}
                 </strong>
 
                 <span>
