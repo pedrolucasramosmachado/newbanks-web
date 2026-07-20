@@ -35,8 +35,8 @@ export function Dashboard() {
   const [insightsLoading, setInsightsLoading] =
     useState(true);
 
-const [chatOpen, setChatOpen] =
-  useState(true);
+const [chatOpen, setChatOpen] = useState(true);
+const [chatMinimized, setChatMinimized] = useState(true);
 
   const [modalType, setModalType] = useState<
     "deposit" | "withdraw" | "transfer" | null
@@ -197,11 +197,14 @@ async function handleTransfer(
           balance={account?.balance ?? "0"}
         />
 
-        <KatarinaCard
-          onOpen={() => setChatOpen(true)}
-          insights={insights}
-          loading={insightsLoading}
-        />
+       <KatarinaCard
+  onOpen={() => {
+    setChatOpen(true);
+    setChatMinimized(false);
+  }}
+  insights={insights}
+  loading={insightsLoading}
+/>
 
         <QuickActions
           onDeposit={() =>
@@ -246,9 +249,12 @@ async function handleTransfer(
       />
 
       <KatarinaChat
-        open={chatOpen}
-        onClose={() => setChatOpen(false)}
-      />
+  open={chatOpen}
+  minimized={chatMinimized}
+  onMinimize={() => setChatMinimized(true)}
+  onRestore={() => setChatMinimized(false)}
+  onClose={() => setChatOpen(false)}
+/>
     </main>
   );
 }

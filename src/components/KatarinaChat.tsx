@@ -10,6 +10,9 @@ type Message = {
 
 type KatarinaChatProps = {
   open: boolean;
+  minimized: boolean;
+  onMinimize: () => void;
+  onRestore: () => void;
   onClose: () => void;
 };
 
@@ -22,11 +25,14 @@ const suggestions = [
 
 export function KatarinaChat({
   open,
+  minimized,
+  onMinimize,
+  onRestore,
   onClose,
 }: KatarinaChatProps) {
   const [question, setQuestion] = useState("");
   const [loading, setLoading] = useState(false);
-const [minimized, setMinimized] = useState(true);
+
 
   const [messages, setMessages] = useState<Message[]>([
     {
@@ -46,9 +52,9 @@ const [minimized, setMinimized] = useState(true);
 
 useEffect(() => {
   if (!open) {
-    setMinimized(true);
+    onMinimize();
   }
-}, [open]);
+}, [open, onMinimize]);
 
   async function sendQuestion(selectedQuestion?: string) {
     const trimmedQuestion = (
@@ -139,7 +145,7 @@ if (minimized) {
   return (
     <button
       type="button"
-      onClick={() => setMinimized(false)}
+      onClick={() => onRestore()}
       style={styles.minimizedButton}
       aria-label="Abrir Katarina"
     >
@@ -201,7 +207,7 @@ if (minimized) {
         <div style={styles.headerActions}>
           <button
             type="button"
-            onClick={() => setMinimized(true)}
+            onClick={() =>onMinimize()}
             aria-label="Minimizar chat"
             title="Minimizar"
             style={styles.headerButton}

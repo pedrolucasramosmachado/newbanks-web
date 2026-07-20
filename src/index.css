@@ -701,3 +701,9 @@ opacity:1;
 .katarina-suggestions::-webkit-scrollbar {
   display: none;
 }
+
+.transaction-description {
+  color: #9a9aab;
+  font-size: 0.82rem;
+  margin-top: 2px;
+}

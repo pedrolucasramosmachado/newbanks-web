@@ -84,15 +84,21 @@ export function TransactionList({
               </div>
 
               <div className="transaction-info">
-                <strong>
-                  {getTransactionTitle(transaction)}
-                </strong>
+               <strong>
+  {getTransactionTitle(transaction)}
+</strong>
 
-                <span>
-                  {new Date(
-                    transaction.createdAt
-                  ).toLocaleDateString("pt-BR")}
-                </span>
+{transaction.description && (
+  <span className="transaction-description">
+    {transaction.description}
+  </span>
+)}
+
+<span>
+  {new Date(
+    transaction.createdAt
+  ).toLocaleDateString("pt-BR")}
+</span>
               </div>
 
               <strong
